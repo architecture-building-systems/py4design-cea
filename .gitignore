@@ -54,6 +54,8 @@ examples/citygmlenv_examples/shapefile2daysim.py
 dist/
 sphinx_docs/
 py4design.egg-info/
+py4design_cea.egg-info/
+
 
 # exclude PyCharm files
 .idea/

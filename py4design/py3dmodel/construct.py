@@ -42,7 +42,7 @@ from OCC.Core.BRep import BRep_Builder, BRep_Tool
 from OCC.Core.TopoDS import TopoDS_Shell, TopoDS_Shape
 from OCC.Core.BRepMesh import BRepMesh_IncrementalMesh
 from OCC.Core.TopLoc import TopLoc_Location
-from OCC.Core.Visualization import Tesselator
+from OCC.Core import Tesselator
 
 #========================================================================================================
 #NUMERIC & TEXT INPUTS
