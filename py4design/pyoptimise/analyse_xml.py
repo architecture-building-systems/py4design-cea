@@ -1,3 +1,6 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 # ==================================================================================================
 #
 #    Copyright (c) 2016, Chen Kian Wee (chenkianwee@gmail.com)
@@ -661,7 +664,7 @@ def hyper_volume(score_2dlist, ref_pt, min_max_list):
     hyper volume : float
         The hyper volume of the front.
     """
-    import hv
+    from . import hv
     hypervolume = hv.HyperVolume(ref_pt)
     min_front = prepare_front_4_hypervolume(score_2dlist, min_max_list)
     volume = hypervolume.compute(min_front)

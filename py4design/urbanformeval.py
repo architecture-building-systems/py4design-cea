@@ -1,3 +1,6 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 # ==================================================================================================
 #
 #    Copyright (c) 2016, Chen Kian Wee (chenkianwee@gmail.com)
@@ -293,7 +296,7 @@ def route_directness(network_occedgelist, plot_occfacelist, boundary_occface, ob
     #designate peripheral points
     #======================================================================
     peripheral_ptlist, pedgelist, interptlist = designate_peripheral_pts(boundary_occface, network_occedgelist, precision)
-    print("NPLOTS", len(plot_occfacelist))
+    print(("NPLOTS", len(plot_occfacelist)))
     #======================================================================
     #connect the street network: connect midpt of each plot to the street network
     #======================================================================

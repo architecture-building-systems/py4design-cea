@@ -56,3 +56,6 @@ Using any of these submodules requires an explicit import. For example, from py4
  urbangeom                    --- Functions to process urban geometries, uses subpackages: py3dmodel
  utility                      --- Utility functions
 """
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function

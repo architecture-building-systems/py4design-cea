@@ -1,3 +1,6 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 # ==================================================================================================
 #
 #    Copyright (c) 2016, Chen Kian Wee (chenkianwee@gmail.com)
@@ -471,7 +474,7 @@ def write_2_stl2(occtopology, stl_filepath, is_meshed = True, linear_deflection 
                 index_list.append(p_index)
             face_index_2dlsit.append(index_list)
         elif len(f_pyptlist) > 3:
-            print("THE FACE HAS THE WRONG NUMBER OF VERTICES, IT HAS:", len(f_pyptlist), "VERTICES")
+            print(("THE FACE HAS THE WRONG NUMBER OF VERTICES, IT HAS:", len(f_pyptlist), "VERTICES"))
             tri_faces = construct.simple_mesh(face)
             for tri_face in tri_faces:
                 tps = fetch.points_frm_occface(tri_face)
@@ -627,7 +630,7 @@ def write_2_stl_gmsh(occtopology, stl_filepath, mesh_dim = 2, min_length = 1, ma
     
     # load the stl file
     if process == 0 and os.path.isfile(stl_filepath) :
-        print("WROTE TO:", stl_filepath)
+        print(("WROTE TO:", stl_filepath))
         os.chdir(cwd)
     else:
         print("Be sure gmsh is in your PATH")

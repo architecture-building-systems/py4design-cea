@@ -17,6 +17,9 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>.
 
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 import random
 
 from OCC.Core.Bnd import Bnd_Box
@@ -273,7 +276,7 @@ def random_vec():
 def random_colored_material_aspect():
     clrs = [i for i in dir(Graphic3d) if i.startswith('Graphic3d_NOM_')]
     color = random.sample(clrs, 1)[0]
-    print("color", color)
+    print(("color", color))
     return Graphic3d.Graphic3d_MaterialAspect(getattr(Graphic3d, color))
 
 
@@ -342,7 +345,7 @@ def point_in_solid(solid, pnt, tolerance=1e-5):
     from OCC.Core.BRepClass3d import BRepClass3d_SolidClassifier
     from OCC.Core.TopAbs import TopAbs_ON, TopAbs_OUT, TopAbs_IN
     _in_solid = BRepClass3d_SolidClassifier(solid, pnt, tolerance)
-    print("State", _in_solid.State())
+    print(("State", _in_solid.State()))
     if _in_solid.State() == TopAbs_ON:
         return None, 'on'
     if _in_solid.State() == TopAbs_OUT:
@@ -437,7 +440,7 @@ def resample_curve_with_uniform_deflection(curve, deflection=0.5, degreeMin=3, d
     crv = to_adaptor_3d(curve)
     defl = GCPnts_UniformDeflection(crv, deflection)
     with assert_isdone(defl, 'failed to compute UniformDeflection'):
-        print("Number of points:", defl.NbPoints())
+        print(("Number of points:", defl.NbPoints()))
     sampled_pnts = [defl.Value(i) for i in xrange(1, defl.NbPoints())]
     resampled_curve = GeomAPI_PointsToBSpline(point_list_to_TColgp_Array1OfPnt(sampled_pnts), degreeMin, degreeMax, continuity, tolerance)
     return resampled_curve.Curve().GetObject()

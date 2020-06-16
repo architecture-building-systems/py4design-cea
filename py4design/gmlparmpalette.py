@@ -1,3 +1,6 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 # ==================================================================================================
 #
 #    Copyright (c) 2016, Chen Kian Wee (chenkianwee@gmail.com)
@@ -24,6 +27,7 @@ from . import urbangeom
 from . import pycitygml
 from . import py3dmodel
 from . import utility
+from functools import reduce
 
 class BaseParm(object):
     """
@@ -1757,7 +1761,7 @@ class BldgTwistParm(BaseParm):
                 
                 
                 if len(new_building_shell_list)>1:
-                    print "NUMBER OF SOLIDS:", len(new_building_shell_list)
+                    print("NUMBER OF SOLIDS:", len(new_building_shell_list))
                     if external_horz_plate_list1:
                         external_horz_plate_list2 = reduce(lambda x,y :x+y ,external_horz_plate_list1)
                         new_bldg_face_list = lvl_faces + external_horz_plate_list + external_horz_plate_list2
@@ -2198,7 +2202,7 @@ class BldgBendParm(BaseParm):
                 new_building_shell_list = py3dmodel.construct.sew_faces(new_bldg_face_list)
                 
                 if len(new_building_shell_list)>1:
-                    print "NUMBER OF SOLIDS:", len(new_building_shell_list)
+                    print("NUMBER OF SOLIDS:", len(new_building_shell_list))
                     if external_horz_plate_list1:
                         external_horz_plate_list2 = reduce(lambda x,y :x+y ,external_horz_plate_list1)
                         new_bldg_face_list = lvl_faces + external_horz_plate_list + external_horz_plate_list2
@@ -2647,7 +2651,7 @@ class BldgSlantParm(BaseParm):
                 new_building_shell_list = py3dmodel.construct.sew_faces(new_bldg_face_list)
                 
                 if len(new_building_shell_list)>1:
-                    print "NUMBER OF SOLIDS:", len(new_building_shell_list)
+                    print("NUMBER OF SOLIDS:", len(new_building_shell_list))
                     #py3dmodel.construct.visualise([new_building_shell_list], ["RED"])
                     if external_horz_plate_list1:
                         external_horz_plate_list2 = reduce(lambda x,y :x+y ,external_horz_plate_list1)
@@ -3095,7 +3099,7 @@ class BldgTaperParm(BaseParm):
                 new_building_shell_list = py3dmodel.construct.sew_faces(new_bldg_face_list)
                 
                 if len(new_building_shell_list)>1:
-                    print "NUMBER OF SOLIDS:", len(new_building_shell_list)
+                    print("NUMBER OF SOLIDS:", len(new_building_shell_list))
                     
                     if external_horz_plate_list1:
                         external_horz_plate_list2 = reduce(lambda x,y :x+y ,external_horz_plate_list1)

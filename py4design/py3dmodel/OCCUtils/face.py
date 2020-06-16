@@ -1,3 +1,6 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 ##Copyright 2008-2013 Jelle Feringa (jelleferinga@gmail.com)
 ##
 ##This file is part of pythonOCC.
@@ -275,7 +278,7 @@ class Face(TopoDS_Face, BaseObject):
         a = map(_round, breptools_UVBounds(self))
         b = map(_round, self.adaptor.Surface().Surface().GetObject().Bounds())
         if a != b:
-            print('a,b', a, b)
+            print(('a,b', a, b))
             return True
         return False
 

@@ -33,9 +33,12 @@ Submodules
                                   dependencies: matplotlib
  nsga2                        --- Classes and functions for performing NSGA2 optimisation.
 """
-import nsga2
-import analyse_xml
-import draw_graph
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from . import nsga2
+from . import analyse_xml
+from . import draw_graph
 
 def empty_xml_files(xml_filelist):
     """

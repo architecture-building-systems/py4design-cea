@@ -1,3 +1,6 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 ##Copyright 2008-2015 Jelle Feringa (jelleferinga@gmail.com)
 ##
 ##This file is part of pythonOCC.

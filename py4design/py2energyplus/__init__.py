@@ -1,3 +1,6 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 # ==================================================================================================
 #
 #    Copyright (c) 2016, Chen Kian Wee (chenkianwee@gmail.com)
@@ -27,7 +30,7 @@ import string
 import datetime
 import subprocess
 
-import idf_writer
+from . import idf_writer
 '''
 #Find where EnergyPlus is installed
 EP_FOLDER_NAME = "EnergyPlusV8-7-0"
@@ -820,7 +823,7 @@ class Idf(object):
             command = "runenergyplus " +  idf_file_path_no_ext + " " + weather_file_path +  " > ep_out.txt"
             os.system(command)
             f = open("ep_out.txt", "r")
-            print f.read()
+            print(f.read())
             f.close()
 
         elif operating_sys == "nt":

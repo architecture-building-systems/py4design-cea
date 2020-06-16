@@ -1,3 +1,6 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 # ==================================================================================================
 #
 #    Copyright (c) 2016, Chen Kian Wee (chenkianwee@gmail.com)
@@ -25,7 +28,7 @@ import random
 import xml.dom.minidom
 from xml.dom.minidom import Document
 
-import analyse_xml
+from . import analyse_xml
 #================================================================================
 def frange(start, end=None, inc=None):
     """
@@ -952,7 +955,7 @@ class Population(object):
             gene_list = self.genotype_meta.gene_list
             genotype_list  = analyse_xml.get_childnode_values("inputparam", individual)
             genotype_list_converted = []
-            print(genotype_list, identity)
+            print((genotype_list, identity))
             for cnt in range(len(genotype_list)):
                 gene_type = None
                 for gene in gene_list:

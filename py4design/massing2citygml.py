@@ -1,3 +1,6 @@
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 # ==================================================================================================
 #
 #    Copyright (c) 2016, Chen Kian Wee (chenkianwee@gmail.com)
@@ -165,7 +168,7 @@ class Massing2Citygml(object):
             occshp_attribs_obj.set_shape(nw_edge)
             occshp_attribs_obj_list.append(occshp_attribs_obj)
 
-        print len(shells), len(sewed_shells)
+        print(len(shells), len(sewed_shells))
         self.occshp_attribs_obj_list = occshp_attribs_obj_list
 
     def add_template_rule(self, template_rule_obj):
@@ -196,7 +199,7 @@ class Massing2Citygml(object):
                     
         #calculate the flatten shell for the analysis rules
         #doing it once here saves time
-        print  "GETTING FLATTEN SURFACE"
+        print("GETTING FLATTEN SURFACE")
         for occshp_attribs_obj in occshp_attribs_obj_list:
             occshp = occshp_attribs_obj.shape
             shptype = py3dmodel.fetch.get_topotype(occshp)
@@ -210,7 +213,7 @@ class Massing2Citygml(object):
                     occshp_attribs_obj.dictionary["flatten_shell_face"] = flatten_shell_face
 
         for analysis_rule_obj in analysis_rule_obj_list:
-            print analysis_rule_obj
+            print(analysis_rule_obj)
             occshp_attribs_obj_list = analysis_rule_obj.execute(occshp_attribs_obj_list)
             
         self.occshp_attribs_obj_list = occshp_attribs_obj_list
@@ -228,7 +231,7 @@ class Massing2Citygml(object):
         occshape_attribs_obj_list = self.occshp_attribs_obj_list
         pycitygml_writer = pycitygml.Writer()
         for template_rule_obj in template_rule_obj_list:
-            print template_rule_obj
+            print(template_rule_obj)
             template_rule_obj.identify(occshape_attribs_obj_list, pycitygml_writer)
             
         pycitygml_writer.write(citygml_filepath)

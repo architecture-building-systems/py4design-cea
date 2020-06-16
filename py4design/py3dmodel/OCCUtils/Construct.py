@@ -22,6 +22,9 @@ This modules makes the construction of geometry a little easier
 '''
 
 from __future__ import with_statement
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 from functools import wraps
 import warnings
 import operator
@@ -593,10 +596,10 @@ def sew_shapes(shapes, tolerance=0.001):
         else:
             sew.Add(shp)
     sew.Perform()
-    print("n degenerated shapes", sew.NbDegeneratedShapes())
-    print("n deleted faces:", sew.NbDeletedFaces())
-    print("n free edges", sew.NbFreeEdges())
-    print("n multiple edges:", sew.NbMultipleEdges())
+    print(("n degenerated shapes", sew.NbDegeneratedShapes()))
+    print(("n deleted faces:", sew.NbDeletedFaces()))
+    print(("n free edges", sew.NbFreeEdges()))
+    print(("n multiple edges:", sew.NbMultipleEdges()))
     result = ShapeToTopology()(sew.SewedShape())
     return result
 
@@ -609,7 +612,7 @@ def boolean_cut(shapeToCutFrom, cuttingShape):
     from OCC.Core.BRepAlgoAPI import BRepAlgoAPI_Cut
     try:
         cut = BRepAlgoAPI_Cut(shapeToCutFrom, cuttingShape)
-        print("Can work?", cut.BuilderCanWork())
+        print(("Can work?", cut.BuilderCanWork()))
         _error = {0: '- Ok',
                   1: '- The Object is created but Nothing is Done',
                   2: '- Null source shapes is not allowed',
@@ -619,7 +622,7 @@ def boolean_cut(shapeToCutFrom, cuttingShape):
                   6: '- Unknown operation is not allowed',
                   7: '- Can not allocate memory for the Builder',
                   }
-        print("Error status:", _error[cut.ErrorStatus()])
+        print(("Error status:", _error[cut.ErrorStatus()]))
         cut.RefineEdges()
         cut.FuseEdges()
         shp = cut.Shape()

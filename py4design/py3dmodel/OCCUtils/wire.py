@@ -17,6 +17,9 @@
 ##You should have received a copy of the GNU Lesser General Public License
 ##along with pythonOCC.  If not, see <http://www.gnu.org/licenses/>
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 from OCC.Core.TopoDS import TopoDS_Wire
 
 from OCCUtils.base import BaseObject
