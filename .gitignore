@@ -48,10 +48,9 @@ Temporary Items
 examples/citygmlenv_examples/shapefile2daysim.py
 
 #pyc files
-.pyc
-=======
 *.pyc
 dist/
+build/
 sphinx_docs/
 py4design.egg-info/
 py4design_cea.egg-info/
