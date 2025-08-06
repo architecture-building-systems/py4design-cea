@@ -10,7 +10,7 @@ authors = [
     {name = "CHEN Kian Wee", email = "chenkianwee@gmail.com"}
 ]
 maintainers = [
-    {name = "Chen Kian Wee", email = "chenkianwee@gmail.com"}
+    {name = "Reynold Mok", email = "reynold.mok@arch.ethz.ch"}
 ]
 license = {text = "GPL-3.0"}
 readme = "readme.txt"
