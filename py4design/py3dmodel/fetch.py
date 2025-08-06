@@ -26,9 +26,8 @@ from .OCCUtils import edge
 
 from OCC.Core.TopExp import TopExp_Explorer
 from OCC.Core.TopAbs import TopAbs_COMPOUND, TopAbs_COMPSOLID, TopAbs_SOLID, TopAbs_SHELL, TopAbs_FACE, TopAbs_WIRE, TopAbs_EDGE, TopAbs_VERTEX, TopAbs_REVERSED
-from OCC.Core.TopoDS import topods_Compound, topods_CompSolid, topods_Solid, topods_Shell, topods_Face, topods_Wire, topods_Edge, topods_Vertex
+from OCC.Core.TopoDS import topods
 from OCC.Core.Geom import Handle_Geom_BSplineCurve_Create, Geom_BSplineCurve
-from OCC.Core.BRepAdaptor import BRepAdaptor_Curve, BRepAdaptor_HCurve
 
 #========================================================================================================
 #EDGE INPUTS
@@ -75,7 +74,7 @@ def is_edge_bspline(occedge):
     #GeomAbs_BezierCurve     5	
     #GeomAbs_BSplineCurve    6	
     #GeomAbs_OtherCurve      7
-
+    from OCC.Core.BRepAdaptor import BRepAdaptor_Curve
     adaptor = BRepAdaptor_Curve(occedge)
     ctype = adaptor.GetType()
     if ctype == 6:
@@ -97,6 +96,7 @@ def is_edge_line(occedge):
     True or False : bool
         True or False if the edge contains a line.
     """
+    from OCC.Core.BRepAdaptor import BRepAdaptor_Curve
     adaptor = BRepAdaptor_Curve(occedge)
     
     #GeomAbs_Line 	        0
@@ -129,6 +129,7 @@ def poles_from_bsplinecurve_edge(occedge):
     List of poles : pyptlist
         List of poles of the bspline curve
     """
+    from OCC.Core.BRepAdaptor import BRepAdaptor_Curve, BRepAdaptor_HCurve
     adaptor = BRepAdaptor_Curve(occedge)
     adaptor_handle = BRepAdaptor_HCurve(adaptor)
     bspline = adaptor.BSpline()
@@ -143,7 +144,7 @@ def poles_from_bsplinecurve_edge(occedge):
         pypole = (pole.X(), pole.Y(), pole.Z())
         polelist.append(pypole)
         
-    if topods_Edge(occedge).Orientation() == TopAbs_REVERSED:
+    if topods.Edge(occedge).Orientation() == TopAbs_REVERSED:
         polelist.reverse()
 
     return polelist
@@ -527,21 +528,21 @@ def topo2topotype(occtopology):
     """
     shapetype = occtopology.ShapeType()
     if shapetype == TopAbs_COMPOUND:#compound
-        orig_topo = topods_Compound(occtopology)
+        orig_topo = topods.Compound(occtopology)
     if shapetype == TopAbs_COMPSOLID:#compsolid
-        orig_topo = topods_CompSolid(occtopology)
+        orig_topo = topods.CompSolid(occtopology)
     if shapetype == TopAbs_SOLID:#solid
-        orig_topo = topods_Solid(occtopology)
+        orig_topo = topods.Solid(occtopology)
     if shapetype == TopAbs_SHELL:#shell
-        orig_topo = topods_Shell(occtopology)
+        orig_topo = topods.Shell(occtopology)
     if shapetype == TopAbs_FACE:#face
-        orig_topo = topods_Face(occtopology)
+        orig_topo = topods.Face(occtopology)
     if shapetype == TopAbs_WIRE:#wire
-        orig_topo = topods_Wire(occtopology)
+        orig_topo = topods.Wire(occtopology)
     if shapetype == TopAbs_EDGE:#edge
-        orig_topo = topods_Edge(occtopology)
+        orig_topo = topods.Edge(occtopology)
     if shapetype == TopAbs_VERTEX:#vertex
-        orig_topo = topods_Vertex(occtopology)
+        orig_topo = topods.Vertex(occtopology)
     return orig_topo
 
 def topo_explorer(occtopo2explore, topotype2find):
@@ -585,21 +586,21 @@ def topo_explorer(occtopo2explore, topotype2find):
     ex = TopExp_Explorer(occtopo2explore, shapetype2find_topABS)
     while ex.More():
         if shapetype2find_topABS == 0:
-            geom = topods_Compound(ex.Current())
+            geom = topods.Compound(ex.Current())
         if shapetype2find_topABS == 1:
-            geom = topods_CompSolid(ex.Current())
+            geom = topods.CompSolid(ex.Current())
         if shapetype2find_topABS == 2:
-            geom = topods_Solid(ex.Current())
+            geom = topods.Solid(ex.Current())
         if shapetype2find_topABS == 3:
-            geom = topods_Shell(ex.Current())
+            geom = topods.Shell(ex.Current())
         if shapetype2find_topABS == 4:
-            geom = topods_Face(ex.Current())
+            geom = topods.Face(ex.Current())
         if shapetype2find_topABS == 5:
-            geom = topods_Wire(ex.Current())
+            geom = topods.Wire(ex.Current())
         if shapetype2find_topABS == 6:
-            geom = topods_Edge(ex.Current())
+            geom = topods.Edge(ex.Current())
         if shapetype2find_topABS == 7:
-            geom = topods_Vertex(ex.Current())
+            geom = topods.Vertex(ex.Current())
         geom_list.append(geom)
         ex.Next()
     return geom_list

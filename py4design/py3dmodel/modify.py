@@ -22,16 +22,16 @@ from . import fetch
 from . import calculate
 from . import construct
 from . import modify
-from . import utility
+# from . import utility
 
 from . import OCCUtils
 
 from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_Transform, BRepBuilderAPI_MakeEdge, BRepBuilderAPI_GTransform
-from OCC.Core.gp import gp_Pnt, gp_Vec, gp_Ax1, gp_Ax3, gp_Dir, gp_DZ, gp_Trsf, gp_GTrsf, gp_Mat
+from OCC.Core.gp import gp_Pnt, gp_Vec, gp_Ax1, gp_Ax3, gp_Dir, gp, gp_Trsf, gp_GTrsf, gp_Mat
 from OCC.Core.ShapeFix import ShapeFix_Shell, ShapeFix_Solid, ShapeFix_Wire, ShapeFix_Face
 from OCC.Core.BRepLib import breplib
 from OCC.Core.Geom import Geom_TrimmedCurve
-from OCC.Core.BRepAdaptor import BRepAdaptor_Curve, BRepAdaptor_CompCurve, BRepAdaptor_HCompCurve
+from OCC.Core.BRepAdaptor import BRepAdaptor_Curve, BRepAdaptor_CompCurve
 from OCC.Core.GeomConvert import geomconvert_CurveToBSplineCurve
 from OCC.Core.BRep import BRep_Tool
 
@@ -260,6 +260,43 @@ def rmv_duplicated_pts_by_distance(pyptlist, distance = 1e-06):
 
     return f_pyptlist
 
+def id_dup_pts_indices(pyptlist):
+    """
+    This function removes duplicated points.
+ 
+    Parameters
+    ----------
+    pyptlist : a list of tuples
+        List of points to be analysed. A pypt is a tuple that documents the xyz coordinates of a pt e.g. (x,y,z), 
+        thus a pyptlist is a list of tuples e.g. [(x1,y1,z1), (x2,y2,z2), ...]
+        
+    Returns
+    -------
+    list of indices : ndarray
+        Indices of the dupicated points.
+    """ 
+    import numpy as np
+    if pyptlist != np.ndarray:
+        pyptlist = np.array(pyptlist)
+    
+    uniq, indices, inv_inds = np.unique(pyptlist, axis=0, 
+                                        return_index = True,
+                                        return_inverse = True)
+    
+    idx_sort = np.argsort(inv_inds)
+    sorted_lst = inv_inds[idx_sort]
+    
+    vals, idx_start, count = np.unique(sorted_lst, 
+                                       return_counts=True,
+                                       return_index=True)
+    
+    res = np.split(idx_sort, idx_start[1:])
+    
+    vals = vals[count > 1]
+    res = list(filter(lambda x: x.size > 1, res))
+    
+    return res
+
 def rmv_duplicated_pts(pyptlist, roundndigit = None):
     """
     This function removes duplicated points.
@@ -278,22 +315,15 @@ def rmv_duplicated_pts(pyptlist, roundndigit = None):
     list of fused points : pyptlist
         The list of fused points.
     """    
-    if roundndigit == None:
-        u_pyptlist = []
-        for pypt in pyptlist:
-            if pypt not in u_pyptlist:
-                u_pyptlist.append(pypt)
-                
-        return u_pyptlist
+    import numpy as np 
+    if pyptlist != np.ndarray:
+        pyptlist = np.array(pyptlist)
         
-    else:
-        round_pyptlist = []
-        for pypt in pyptlist:
-            round_pypt = (round(pypt[0],roundndigit), round(pypt[1],roundndigit), round(pypt[2],roundndigit))
-            if round_pypt not in round_pyptlist:
-                round_pyptlist.append(round_pypt)
-            
-    return round_pyptlist
+    if roundndigit != None:
+        pyptlist = pyptlist.round(roundndigit)
+    
+    uniq = np.unique(pyptlist, axis=0)
+    return uniq
     
 #========================================================================================================
 #EDGE INPUTS
@@ -462,6 +492,8 @@ def wire_2_bsplinecurve_edge(occwire):
         The converted OCCedge.
     """
     adaptor = BRepAdaptor_CompCurve(occwire)
+    from OCC.Core.BRepAdaptor import BRepAdaptor_HCompCurve
+
     hadap = BRepAdaptor_HCompCurve(adaptor)
     from OCC.Core.Approx import Approx_Curve3d
     from OCC.Core.GeomAbs import GeomAbs_C2
@@ -860,8 +892,8 @@ def move(orig_pypt, location_pypt, occtopology):
     moved topology : OCCtopology (OCCshape)
         The moved OCCtopology.
     """
-    gp_ax31 = gp_Ax3(gp_Pnt(orig_pypt[0], orig_pypt[1], orig_pypt[2]), gp_DZ())
-    gp_ax32 = gp_Ax3(gp_Pnt(location_pypt[0], location_pypt[1], location_pypt[2]), gp_DZ())
+    gp_ax31 = gp_Ax3(gp_Pnt(orig_pypt[0], orig_pypt[1], orig_pypt[2]), gp.DZ())
+    gp_ax32 = gp_Ax3(gp_Pnt(location_pypt[0], location_pypt[1], location_pypt[2]), gp.DZ())
     aTrsf = gp_Trsf()
     aTrsf.SetTransformation(gp_ax32,gp_ax31)
     trsf_brep = BRepBuilderAPI_Transform(aTrsf)
